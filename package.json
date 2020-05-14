@@ -1,5 +1,5 @@
 {
-  "name": "exspark",
+  "name": "tritonjs",
   "version": "0.0.1",
   "description": "A boilerplate webserver based on express + react + node for easy and fast development.",
   "main": "index.js",
