@@ -1,0 +1,11 @@
+{
+  "name": "exspark",
+  "version": "0.0.1",
+  "description": "A boilerplate webserver based on express + react + node for easy and fast development.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
