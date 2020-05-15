@@ -1,4 +1,4 @@
-#TritonJS
+## VormirJS
 A boilerplate webserver based on express + react + node for easy and fast development.
 
 ***
