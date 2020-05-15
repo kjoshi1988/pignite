@@ -1,5 +1,5 @@
 {
-  "name": "tritonjs",
+  "name": "vormirjs",
   "version": "0.0.1",
   "description": "A boilerplate webserver based on express + react + node for easy and fast development.",
   "main": "index.js",
@@ -7,5 +7,21 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "broccoli-funnel": "^3.0.3",
+    "broccoli-merge-trees": "^4.2.0",
+    "broccoli-rollup": "^4.1.1",
+    "broccoli-sass-source-maps": "^4.0.0",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5"
+  }
 }
