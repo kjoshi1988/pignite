@@ -1,21 +1,36 @@
 {
-  "name": "vormirjs",
+  "name": "pignite",
   "version": "0.0.1",
   "description": "A boilerplate webserver based on express + react + node for easy and fast development.",
   "main": "index.js",
+  "homepage": "https://github.com/kjoshi1988/pignite#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kjoshi1988/pignite"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "broccoli build"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "@babel/preset-react": "^7.9.4",
+    "broccoli": "^3.4.2",
+    "broccoli-cli": "^1.0.0",
     "broccoli-funnel": "^3.0.3",
     "broccoli-merge-trees": "^4.2.0",
     "broccoli-rollup": "^4.1.1",
     "broccoli-sass-source-maps": "^4.0.0",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-node-resolve": "^5.2.0"
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-peer-deps-external": "^2.2.2",
+    "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-uglify": "^6.0.4",
+    "sass": "^1.26.5"
   },
   "dependencies": {
     "express": "^4.17.1",

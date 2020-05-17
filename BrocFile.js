@@ -6,8 +6,11 @@ const Rollup = require("broccoli-rollup");
 const babel = require("rollup-plugin-babel");
 const nodeResolve = require('rollup-plugin-node-resolve');
 const commonjs = require('rollup-plugin-commonjs');
+const replace = require('rollup-plugin-replace');
+const externals =  require('rollup-plugin-peer-deps-external');
+const uglify =  require('rollup-plugin-uglify').uglify;
 
-const appRoot = "app";
+const appRoot = "test";
 
 // Copy HTML file from app root to destination
 const html = funnel(appRoot, {
@@ -15,22 +18,27 @@ const html = funnel(appRoot, {
   annotation: "Index file",
 });
 
+console.log("__dirname=====", __dirname);
+
 // Compile JS through rollup
 let js = new Rollup(appRoot, {
-  inputFiles: ["**/*.js"],
+  inputFiles: ["**/*.js", "**/*.jsx"],
   annotation: "JS Transformation",
   rollup: {
     input: {
-      app: "app.js"
+      base: "base.jsx"
     },
-    output: {
-      file: "assets/app.js",
-      format: "iife",
-      sourcemap: true,
-    },
+    output: [
+      {
+        dir: 'client/assets/iife',
+        format: 'iife',
+        sourcemap: true
+      }
+    ],
+    external: ['react', 'react-dom'],
     plugins: [
+      externals(),
       nodeResolve({
-        jsnext: true,
         browser: true,
       }),
       commonjs({
@@ -38,7 +46,69 @@ let js = new Rollup(appRoot, {
       }),
       babel({
         exclude: "node_modules/**",
+        presets: [
+          "@babel/env",
+          "@babel/react"
+        ],
+        runtimeHelpers: true
       }),
+      replace({
+        "process.env.NODE_ENV": JSON.stringify("production")
+      }),
+      uglify({
+        output: {
+          comments: false,
+        },
+        sourcemap: true
+      })
+    ],
+  }
+});
+
+let serverJs = new Rollup('', {
+  inputFiles: ["**/*.js", "**/*.jsx"],
+  annotation: "JS Transformation",
+  rollup: {
+    input: "src/server.js",
+    output: [
+      {
+        dir: 'server/assets/es',
+        format: 'es',
+        sourcemap: true
+      },
+      {
+        dir: 'server/assets/umd',
+        format: 'umd',
+        sourcemap: true
+      }
+    ],
+    plugins: [
+      externals(),
+      nodeResolve({
+        jail: ['/src', '/lib'],
+        preferBuiltins: true
+      }),
+      commonjs({
+        include: 'node_modules/**',
+      }),
+      babel({
+        exclude: "node_modules/**",
+        presets: [
+          "@babel/env",
+          "@babel/react"
+        ],
+        runtimeHelpers: true
+      }),
+      replace({
+        "process.env.NODE_ENV": JSON.stringify("production"),
+        "process.env.NODE_CONFIG_PATH": JSON.stringify(__dirname)
+      }),
+      // uglify({
+      //   output: {
+      //     comments: false,
+      //   },
+      //   sourcemap: true
+      // })
     ],
   }
 });
@@ -60,4 +130,4 @@ const public = funnel('public', {
   annotation: "Public files",
 });
 
-module.exports = merge([html, js, css, public], {annotation: "Final output"});
+module.exports = merge([js, serverJs], {annotation: "Final output"});

@@ -3,3 +3,4 @@
 *.ipr
 node_modules/
 tests
+dist/
